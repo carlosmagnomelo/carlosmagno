@@ -137,10 +137,17 @@ button { font: inherit; }
 .profile-avatar {
   width: 180px; height: 180px; border-radius: 50%;
   display: grid; place-items: center;
-  font-family: "Space Grotesk"; font-size: 58px; font-weight: 700;
+  overflow: hidden;
   background: linear-gradient(145deg, #1f1938, #31275b);
   border: 1px solid rgba(255,255,255,.15);
   box-shadow: var(--shadow); z-index: 2;
+}
+.profile-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  display: block;
 }
 .floating-code {
   position: absolute; z-index: 4;
