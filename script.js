@@ -5,7 +5,7 @@ const navLinks = document.getElementById("navLinks");
 const progressBar = document.getElementById("progressBar");
 const year = document.getElementById("year");
 
-// Tema
+// Alternância de Tema (Escuro/Claro)
 const savedTheme = localStorage.getItem("portfolio-theme");
 if (savedTheme) {
   root.setAttribute("data-theme", savedTheme);
@@ -20,12 +20,13 @@ themeToggle.addEventListener("click", () => {
   themeToggle.textContent = next === "light" ? "☾" : "☼";
 });
 
-// Menu mobile
+// Menu Mobile
 menuToggle.addEventListener("click", () => {
   const open = navLinks.classList.toggle("open");
   menuToggle.setAttribute("aria-expanded", open);
 });
 
+// Fechar menu mobile ao clicar em um link
 document.querySelectorAll(".nav-links a").forEach(link => {
   link.addEventListener("click", () => {
     navLinks.classList.remove("open");
@@ -33,14 +34,25 @@ document.querySelectorAll(".nav-links a").forEach(link => {
   });
 });
 
-// Barra de progresso
+// Fechar menu mobile ao clicar em qualquer lugar fora dele
+document.addEventListener("click", (event) => {
+  const isClickInsideMenu = navLinks.contains(event.target);
+  const isClickOnToggle = menuToggle.contains(event.target);
+
+  if (!isClickInsideMenu && !isClickOnToggle && navLinks.classList.contains("open")) {
+    navLinks.classList.remove("open");
+    menuToggle.setAttribute("aria-expanded", "false");
+  }
+});
+
+// Barra de Progresso no Scroll Superior
 window.addEventListener("scroll", () => {
   const scrollTop = window.scrollY;
   const height = document.documentElement.scrollHeight - window.innerHeight;
   progressBar.style.width = `${height > 0 ? (scrollTop / height) * 100 : 0}%`;
 });
 
-// Animações de entrada
+// Animações de Scroll
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -52,5 +64,5 @@ const observer = new IntersectionObserver((entries) => {
 
 document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
 
-// Ano automático
+// Ano Atual Automático no Rodapé
 year.textContent = new Date().getFullYear();
