@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # Portfólio — Carlos Magno
 
 Portfólio profissional responsivo feito somente com HTML, CSS e JavaScript.
